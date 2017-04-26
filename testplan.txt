@@ -1,0 +1,92 @@
+/*
+ *@author Andrew Pagano
+ *@author Thurgood Kilper
+ */
+ 
+Testplan
+
+FILE/input	TEST
+ 
+toktest		tokenizer test / single file test 
+adir		nested directory test	
+aadir		multiple directory test	
+edoc		empty file test
+empdir		empty directory test
+nof			invalid input test
+cdir		files and directories in multiple layers of directories
+			->with empty files and directories included
+ddir		several directories inside directories with same large text 
+			->file in each level 
+adoc		document with 200 instances of the same word.	
+_____________________________________
+nof:
+			RESULT: ~Correct~
+	ERROR
+	
+	
+edoc:
+	""
+			RESULT: ~Correct~
+	<?xml version="1.0" encoding="UTF-8"?>
+	<fileIndex>
+	</fileIndex>
+	
+	
+empdir:
+		RESULT: ~Correct~
+	<?xml version="1.0" encoding="UTF-8"?>
+	<fileIndex>
+	</fileIndex>
+	
+
+toktest:
+	"This an$example12 mail@rutgers a,4an<>a,a"
+			RESULT: ~Correct~
+	<?xml version="1.0" encoding="UTF-8"?>
+	<fileIndex>
+		<word text="a">
+			<file name="toktest">3</file>
+		</word>
+		<word text="an">
+			<file name="toktest">2</file>
+		</word>
+		<word text="example12">
+			<file name="toktest">1</file>
+		</word>
+		<word text="mail">
+			<file name="toktest">1</file>
+		</word>
+		<word text="rutgers">
+			<file name="toktest">1</file>
+		</word>
+		<word text="this">
+			<file name="toktest">1</file>
+		</word>
+	</fileIndex>
+
+
+aadir:
+	aadir/bdir/baa
+	"Cat cat"
+	aadir/offdir/caa 
+	"a bird named caa"
+			RESULT: ~Correct~
+	<?xml version="1.0" encoding="UTF-8"?>
+	<fileIndex>
+		<word text="a">
+			<file name="caa">1</file>
+		</word>
+		<word text="bird">
+			<file name="caa">1</file>
+		</word>
+		<word text="caa">
+			<file name="caa">1</file>
+		</word>
+		<word text="cat">
+			<file name="baa">2</file>
+		</word>
+		<word text="named">
+			<file name="caa">1</file>
+		</word>
+	</fileIndex>
+		
